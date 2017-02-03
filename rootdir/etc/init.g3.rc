@@ -2,6 +2,9 @@ import init.g3.power.rc
 import init.g3.usb.rc
 
 on early-init
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
     mkdir /firmware 0771 system system
     symlink /data/tombstones /tombstones
 
@@ -108,9 +111,6 @@ on boot
     chmod 0660 /dev/ttyHS99
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
-
-    # For NFC
-    symlink /dev/pn547 /dev/pn544
 
     # Flashlight
     chown system system /sys/class/leds/torch-light/brightness
@@ -337,13 +337,14 @@ service charger /sbin/healthd -c
 service baseband-sh /system/bin/sh /init.baseband.sh
     class late_start
     user root
+    seclabel u:r:qti_init_shell:s0
     oneshot
     disabled
 
 service hwaddrs /system/bin/hwaddrs
     class core
     user root
-    group system
+    group bluetooth wifi
     oneshot
 
 service btinit-sh /system/bin/sh /init.qcom.bt.sh
@@ -355,6 +356,7 @@ service btinit-sh /system/bin/sh /init.qcom.bt.sh
 service cal_sensors-sh /system/bin/sh /init.sensors.sh
     class core
     user root
+    seclabel u:r:qti_init_shell:s0
     oneshot
 
 
@@ -398,7 +400,7 @@ service qseecomd /system/bin/qseecomd
 service mpdecision /system/bin/mpdecision --avg_comp
     class main
     user root
-    group system
+    group system readproc
     disabled
 
 service thermal-engine /system/bin/thermal-engine
@@ -488,6 +490,7 @@ service wpa_supplicant /system/bin/wpa_supplicant \
 service lge-sensor-sh /system/bin/sh /init.msm8974.sensor.sh
     class core
     user root
+    seclabel u:r:qti_init_shell:s0
     oneshot
 
 # --> init.qcom.rc <--
@@ -495,6 +498,7 @@ service lge-sensor-sh /system/bin/sh /init.msm8974.sensor.sh
 service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
+    seclabel u:r:qti_init_shell:s0
     oneshot
 
 service qmuxd /system/bin/qmuxd
@@ -532,9 +536,6 @@ on property:ro.boot.emmc=true
 on property:vold.decrypt=trigger_restart_framework
     start sensors
 
-on property:gsm.version.baseband=""
-    start baseband-sh
-
 on property:sys.boot_completed=1
     # enable slimport
     write /sys/devices/f9967000.i2c/i2c-0/0-0072/enable_irq 1
@@ -542,4 +543,4 @@ on property:sys.boot_completed=1
     # Disable LG screen sharpening
     write /sys/devices/virtual/graphics/fb0/sharpening 0
 
-
+    start baseband-sh

@@ -13,7 +13,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
+    camera2.portability.force_api=1 \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -50,7 +52,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.daemon=e \
     debug.qualcomm.sns.hal=e \
     debug.qualcomm.sns.libsensor1=e
-
-# Storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.sdcardfs=true

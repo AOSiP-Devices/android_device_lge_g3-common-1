@@ -111,23 +111,18 @@ etc/firmware/DLdata_rev28B_data3.ecl
 
 # DRM
 bin/qseecomd
-lib/drm/libdrmwvmplugin.so
-vendor/lib/libDivxDrm.so
-vendor/lib/libHevcSwDecoder.so
-vendor/lib/libQSEEComAPI.so
-vendor/lib/libSHIMDivxDrm.so
 vendor/lib/libdrmdecrypt.so
 vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
-vendor/lib/libmmosal.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
-vendor/lib/libwvdrm_L1.so
 vendor/lib/libwvm.so
+vendor/lib/libwvdrm_L1.so
+vendor/lib/libQSEEComAPI.so
 vendor/lib/libWVphoneAPI.so
 vendor/lib/libWVStreamControlAPI_L1.so
-vendor/lib/mediadrm/libdrmclearkeyplugin.so
+vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # Sensors
@@ -137,7 +132,6 @@ vendor/lib/libsensor1.so
 vendor/lib/libsensor_reg.so
 
 # GPS
-etc/izat.conf
 lib/libloc_api_v02.so
 lib/libloc_ds_api.so
 vendor/lib/libgeofence.so
@@ -179,8 +173,8 @@ vendor/lib/libqti-perfd-client.so
 bin/irsc_util
 
 # Radio
--app/qcrilmsgtunnel/qcrilmsgtunnel.apk:app/qcrilmsgtunnel.apk
--app/shutdownlistener/shutdownlistener.apk:app/shutdownlistener.apk
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-app/shutdownlistener/shutdownlistener.apk
 bin/radish
 lib/librmnetctl.so
 vendor/lib/libsmemlog.so
@@ -188,8 +182,8 @@ vendor/lib/libsystem_health_mon.so
 vendor/lib/libxml.so
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
--framework/qcnvitems.jar
--framework/qcrilhook.jar
+framework/qcnvitems.jar
+framework/qcrilhook.jar
 
 # Sensors
 etc/sensors/sensor_def_common.conf
@@ -204,10 +198,10 @@ vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
 
 # Time services
--app/TimeService/TimeService.apk:app/TimeService.apk
 bin/time_daemon
 -vendor/lib/libtime_genoff.so
 vendor/lib/libTimeService.so
+-app/TimeService/TimeService.apk
 
 # WCNSS
 vendor/firmware/wcnss.b00
